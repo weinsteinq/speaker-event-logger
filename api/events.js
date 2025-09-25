@@ -39,10 +39,6 @@ export default async function handler(req, res) {
     const provided =
       (headers["events-webhook-secret"] || "").trim() || bearer;
 
-    // Minimal diagnostics (length only) — comment out after debugging
-    // const mask = s => (s ? `${s.slice(0, 3)}…(${s.length})` : "EMPTY");
-    // console.log("[auth] provided:", mask(provided), "via", headers["events-webhook-secret"] ? "header" : (bearer ? "bearer" : "none"));
-
     if (!provided || provided !== secret) {
       res.setHeader("Access-Control-Allow-Origin", origin);
       return res.status(401).json({ error: "Invalid secret" });
@@ -109,3 +105,4 @@ function readJson(req) {
     });
   });
 }
+
